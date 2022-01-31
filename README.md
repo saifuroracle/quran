@@ -33,7 +33,7 @@
 ```
 node -v
 npm init
-npm install express nodemon dotenv
+npm install express nodemon dotenv mongoose
 
 npm start
 
@@ -51,8 +51,13 @@ mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&ssl=
 db.dropDatabase("quran") ;
 show dbs;
 use quran ;
-db.createCollection("test");
+db.createCollection("users");
 show collections
-db.test.remove({});
+db.users.remove({});
 
 ```
+
+
+# Resource
+* https://www.youtube.com/watch?v=vjf774RKrLc&t=789s
+* 
