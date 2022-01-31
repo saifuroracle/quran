@@ -27,9 +27,32 @@
     * enum
 
 # commands 
+
+## General Commands
   
 ```
 node -v
 npm init
 npm install express nodemon dotenv
+
+npm start
+
+```
+
+## Mongo Commands
+  
+```
+create folder => C:\data\db
+in cmd  run => mongod 
+in another cmd  run => mongo
+in compass =>
+mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&ssl=false
+
+db.dropDatabase("quran") ;
+show dbs;
+use quran ;
+db.createCollection("test");
+show collections
+db.test.remove({});
+
 ```
