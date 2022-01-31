@@ -4,7 +4,7 @@ const app = express()
 require('dotenv').config();
 
 
-require("./app/routes/routes.js")(app);
+require("./routes/routes.js")(app);
 
 
 mongoose.connect(process.env.MONGODB_CONNECTION, () => {
