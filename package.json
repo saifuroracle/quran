@@ -1,0 +1,30 @@
+{
+  "name": "quran",
+  "version": "1.0.0",
+  "description": "This is a project dedicated to represent Islamic contents very easily as much as possible",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/saifuroracle/quran.git"
+  },
+  "keywords": [
+    "Quran",
+    "Hadis",
+    "Prophets"
+  ],
+  "author": "Md. Saifur Rahman",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/saifuroracle/quran/issues"
+  },
+  "homepage": "https://github.com/saifuroracle/quran#readme",
+  "dependencies": {
+    "dotenv": "^15.0.0",
+    "express": "^4.17.2",
+    "nodemon": "^2.0.15"
+  }
+}

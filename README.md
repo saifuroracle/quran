@@ -1,5 +1,14 @@
 # Quran
 
+
+## Built With
+
+<!-- What things you need to install the software and how to install them -->
+
+| Build With | Version  |
+| ---------- | -------- |
+| Node       | v14.16.1 |
+
 # Structures
     * mongodb
       * mongoose
@@ -14,5 +23,14 @@
     * csv
     * pdf
     * queue
-    * 
+    * log
+    * schedule
+    * enum
 
+# commands 
+  
+```
+node -v
+npm init
+npm install express nodemon dotenv
+```
