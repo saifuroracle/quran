@@ -8,7 +8,7 @@ module.exports = app => {
 
     // app.post(prefix + "/register", registerValidation, auth.register);
     // app.post(prefix + "/login", loginValidation, auth.login);
-    // app.post(prefix + "/login", auth.login);
+    app.post(prefix + "/login");
     // app.post(prefix + "/me", authMiddlware, auth.me);
     // app.post(prefix + "/logout", authMiddlware, auth.logout);
     // app.post(prefix + "/change-password", authMiddlware, changePasswordValidation, auth.changePassword);
