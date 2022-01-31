@@ -9,9 +9,9 @@ module.exports = app => {
 
     // app.post(prefix + "/register", registerValidation, auth.register);
     // app.post(prefix + "/login", loginValidation, auth.login);
-    app.post(prefix + "/login", ()=>{
+    app.post(prefix + "/login", (req, res)=>{
         console.log('------------------');
-        return null;
+        res.send('')
     });
     // app.post(prefix + "/me", authMiddlware, auth.me);
     // app.post(prefix + "/logout", authMiddlware, auth.logout);
