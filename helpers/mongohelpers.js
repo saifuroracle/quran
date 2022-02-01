@@ -1,14 +1,29 @@
 const mongoose = require("mongoose");
 
-const mongoResult = exports.mongoResult = async (command) => {
+const mongoResult = exports.mongoResult = (command) => {
 
-    console.log('==========mongoresutl========');
-    return Promise((resolve, reject) => {
-        command
+    console.log('==========mongoresut========');
+    return new Promise((resolve, reject) => {
+        const data = command.exec((err, data) => {
+                        if(data){
+                            console.log('Email Valid');
+                        }
+                        else{
+                            console.log('Error sending action: ', error);
+                            return reject(error);
+                        }
+                    })
 
-        resolve(results);
+        if (error) {
+            console.log('Error sending action: ', error);
+            connection.end();
+            return reject(error);
+        }
+
+        resolve(null);
 
     });
+
 }
 
 
