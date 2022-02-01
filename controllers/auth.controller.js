@@ -12,7 +12,9 @@ exports.login = async (req, res) => {
     console.log('=========1=======');
     // const login_q = mongoResult(Users.findOne({ email: formData?.email }))
     const login_q = await mongoResult(Users.findOne({ email: 'admin@gmail.com' }))
-    
+    if (!login_q) {
+        return set_response(res, null, 422, 'failed', ['Invalid email!'])
+    }
     console.log(login_q);
                                 // .exec((err, user) => {
                                 //     if(user){
