@@ -33,7 +33,7 @@
 ```
 node -v
 npm init
-npm install express express-validator nodemon dotenv mongoose body-parser moment nodemailer express-handlebars fs-extra exceljs 
+npm install express express-validator nodemon dotenv mongoose body-parser cors jsonwebtoken bcryptjs moment nodemailer express-handlebars fs-extra exceljs 
 
 npm start
 
