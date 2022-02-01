@@ -23,7 +23,7 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // parse requests of content-type: application/json
-app.use(bodyParser.json());
+app.use(express.json());
 
 // for parsing multipart/form-data
 app.use(forms.array()); 
