@@ -15,6 +15,13 @@ exports.login = async (req, res) => {
     if (!login_q) {
         return set_response(res, null, 422, 'failed', ['Invalid email!'])
     }
+
+    userData = login_q
+
+    if (userData.status!=1) {
+        return set_response(res, null, 422, 'failed', ['User is blocked!'])
+    }
+
     console.log(login_q);
                                 // .exec((err, user) => {
                                 //     if(user){
