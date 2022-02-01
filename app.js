@@ -38,8 +38,13 @@ app.get('/', (req, res) => {
 
 const main = async () => {
   await mongoose.connect(process.env.MONGODB_CONNECTION, () => {
-      console.log(`Connected to database`);
+      console.log(`Successfully connected to MongoDB.`);
   })
+  .catch(err => {
+    console.error("Connection error", err);
+    process.exit();
+  });
+
 }
 
 main().catch(err => {
