@@ -8,7 +8,6 @@ const mongoResult = exports.mongoResult = (command) => {
         const data = command
         .exec((error, data) => {
             if (error){
-                console.log('Error sending action: ', error);
                 return reject(error);
             }
             resolve(data);
