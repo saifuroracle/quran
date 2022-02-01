@@ -11,12 +11,12 @@ exports.login = async (req, res) => {
 
     console.log('=========1=======');
     // const login_q = mongoResult(Users.findOne({ email: formData?.email }))
-    const userData = await mongoResult(Users.findOne({ email: 'admin@gmail.com' }))
-    if (!userData) {
+    const existingUserData = await mongoResult(Users.findOne({ email: 'admin@gmail.com' }))
+    if (!existingUserData) {
         return set_response(res, null, 422, 'failed', ['Invalid email!'])
     }
 
-    if (userData.status!=1) {
+    if (existingUserData.status!='active') {
         return set_response(res, null, 422, 'failed', ['User is blocked!'])
     }
 

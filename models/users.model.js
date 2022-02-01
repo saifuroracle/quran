@@ -15,8 +15,10 @@ const UsersSchema = mongoose.Schema(
             required: true
         },
         status: {
-            type: Number,
-            required: true
+            type: String,
+            required: true,
+            default: 'active',
+            enum : ['active','inactive'],
         },
     }
 )
