@@ -11,7 +11,7 @@ exports.login = async (req, res) => {
 
     console.log('=========1=======');
     // const login_q = mongoResult(Users.findOne({ email: formData?.email }))
-    const login_q = await mongoResult()
+    const login_q = await mongoResult(Users.findOne({ email: 'admin@gmail.com' }))
     
     console.log(login_q);
                                 // .exec((err, user) => {
