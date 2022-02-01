@@ -1,26 +1,43 @@
 const mongoose = require("mongoose");
 
-const mongoResult = exports.mongoResult = (command) => {
+const Users = require("../models/users.model.js");
+const mongoResult = exports.mongoResult = () => {
 
     console.log('==========mongoresut========');
+
+    // const data =  await command
+    // console.log(data);
+
+    // return data
+
+        // .exec((error, data) => {
+        //     if (error){
+        //         console.log('Error sending action: ', error);
+        //         return reject(error);
+        //     }
+        //     resolve(data);
+        // })
+
+
     return new Promise((resolve, reject) => {
-        const data = command.exec((err, data) => {
-                        if(data){
-                            console.log('Email Valid');
-                        }
-                        else{
-                            console.log('Error sending action: ', error);
-                            return reject(error);
-                        }
-                    })
+        Users.findOne({ email: 'admin@gmail.com' })
+        .exec((error, data) => {
+            if (error){
+                console.log('Error sending action: ', error);
+                return reject(error);
+            }
+            resolve(data);
+        })
 
-        if (error) {
-            console.log('Error sending action: ', error);
-            connection.end();
-            return reject(error);
-        }
-
-        resolve(null);
+        // resolve(121111111) 
+        // .exec((error, data) => {
+        //     if (error){
+        //         console.log('Error sending action: ', error);
+        //         return reject(error);
+        //     }
+        //     resolve(data);
+        // })
+        // resolve(null);
 
     });
 

@@ -10,7 +10,10 @@ exports.login = async (req, res) => {
     console.log(formData);
 
     console.log('=========1=======');
-    var login_q = mongoResult(Users.findOne({ email: formData?.email }))
+    // const login_q = mongoResult(Users.findOne({ email: formData?.email }))
+    const login_q = await mongoResult()
+    
+    console.log(login_q);
                                 // .exec((err, user) => {
                                 //     if(user){
                                 //         console.log('Email Valid');
