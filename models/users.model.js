@@ -18,10 +18,9 @@ const UsersSchema = mongoose.Schema(
             type: Number,
             required: true
         },
-    }, 
-    {
-        collection : 'users'
     }
 )
 
-module.exports = mongoose.model('Users', UsersSchema)
+const collectionName = 'users'
+
+module.exports = mongoose.model('Users', UsersSchema, collectionName)
