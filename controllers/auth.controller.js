@@ -4,7 +4,9 @@ const { set_response } = require('../helpers/apiresponser');
 
 exports.login = (req, res) => {
     console.log('==============');
-    // let formData = {...req.query, ...req.body}
+    let formData = {...req.query, ...req.body}
+
+    console.log(formData);
 
     // Auth.login(formData, (err, data) => {
     //     if (err) {
@@ -13,4 +15,7 @@ exports.login = (req, res) => {
     //         return set_response(res, data, 200, 'success', ['Successfully logged in'])
     //     }
     // });
+
+
+    return set_response(res, null, 200, 'success', ['Successfully logged in'])
 };
