@@ -20,7 +20,6 @@ exports.login = async (req, res) => {
         return set_response(res, null, 422, 'failed', ['User is blocked!'])
     }
 
-    console.log(login_q);
                                 // .exec((err, user) => {
                                 //     if(user){
                                 //         console.log('Email Valid');

@@ -9,7 +9,6 @@ const mongoResult = exports.mongoResult = async(command) => {
             if (error){
                 return reject(error);
             }
-            console.log('mongoresut', data);
             resolve(data);
         })
     });
