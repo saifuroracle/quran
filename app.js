@@ -23,13 +23,17 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // parse requests of content-type: application/json
+// app.use(bodyParser.json());
 app.use(express.json());
 
 // for parsing multipart/form-data
 app.use(forms.array()); 
 
-
+// =================route==================
 require("./routes/routes.js")(app);
+app.get('/', (req, res) => {
+  res.json({message: 'Welcome'})
+}) 
 
 
 const main = async () => {
