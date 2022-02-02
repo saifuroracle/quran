@@ -17,7 +17,7 @@ exports.login = async (req, res) => {
     }
 
     if (existingUserData.status!='active') {
-        return set_response(res, null, 422, 'failed', ['User is inactive!'])
+        return set_response(res, null, 422, 'failed', [`User is ${existingUserData.status || 'inactive'}!`])
     }
 
                                 // .exec((err, user) => {
