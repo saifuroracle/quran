@@ -20,6 +20,12 @@ const UsersSchema = mongoose.Schema(
             default: 'active',
             enum : ['active','inactive'],
         },
+        role_ids: {
+            type: Array,
+            required: true
+        },
+        createdAt: { type: Date, default: Date.now },
+        updatedAt: { type: Date },
     }
 )
 
