@@ -13,8 +13,7 @@ exports.login = async (req, res) => {
     console.log(formData);
 
     console.log('=========1=======');
-    // const login_q = mongoResult(Users.findOne({ email: formData?.email }))
-    const existingUserData = await mongoResult(Users.findOne({ email: 'admin@gmail.com' }))
+    const existingUserData = await mongoResult(Users.findOne({ email: formData?.email }))
     if (!existingUserData) {
         return set_response(res, null, 422, 'failed', ['Invalid email!'])
     }
