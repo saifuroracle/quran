@@ -38,15 +38,27 @@ exports.login = async (req, res) => {
                                     .aggregate(
                                         [
                                             {
-                                                $lookup:
-                                                  {     
+                                                $lookup: {
                                                     from: "roles",
                                                     localField: "role_ids",
                                                     foreignField: "_id",
                                                     as: "roles"
-                                                  }
-                                             },
-                                             { $match: { email: formData?.email } },
+                                                }
+                                            },
+                                            {
+                                                $unwind: {
+                                                    path: "$roles",
+                                                }
+                                            },
+                                            {
+                                                $lookup: {
+                                                    from: "addressComment",
+                                                    localField: "address._id",
+                                                    foreignField: "address_id",
+                                                    as: "address.addressComment",
+                                                }
+                                            }
+                                            { $match: { email: formData?.email } },
                                             //  { $project: { role_ids: 0 } }
                                         ]
                                     )
