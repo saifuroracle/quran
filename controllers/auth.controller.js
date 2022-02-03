@@ -47,7 +47,7 @@ exports.login = async (req, res) => {
     //             LEFT JOIN  rolepermissions ON (roles.id = rolepermissions.role_id)
     //             LEFT JOIN  permissions ON (rolepermissions.permission_id = permissions.id)
     //             WHERE  userroles.deleted_at IS NULL AND roles.deleted_at IS NULL AND rolepermissions.deleted_at IS NULL
-                `) || []
+                // `) || []
 
                                 // .exec((err, user) => {
                                 //     if(user){
