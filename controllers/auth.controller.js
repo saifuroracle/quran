@@ -40,49 +40,19 @@ exports.login = async (req, res) => {
                                             {
                                                 $lookup:
                                                   {     
-                                                    from: "users",
+                                                    from: "roles",
                                                     localField: "role_ids",
                                                     foreignField: "_id",
                                                     as: "roles"
                                                   }
-                                             }
-                                            //  { $match: { $expr: { email: formData?.email } } }
+                                             },
+                                             { $match: { email: formData?.email } }
                                         ]
                                     )
                                 )
-    console.log(userrolespermissions);
 
     const data = userrolespermissions || {}
     
-    // await sqlResult(`
-    //             SELECT users.id user_id, roles.id role_id, roles.role role, permissions.id permission_id, permissions.permission permission 
-    //             FROM users 
-    //             LEFT JOIN  userroles ON (users.id = userroles.user_id)
-    //             LEFT JOIN  roles ON (userroles.role_id = roles.id)
-    //             LEFT JOIN  rolepermissions ON (roles.id = rolepermissions.role_id)
-    //             LEFT JOIN  permissions ON (rolepermissions.permission_id = permissions.id)
-    //             WHERE  userroles.deleted_at IS NULL AND roles.deleted_at IS NULL AND rolepermissions.deleted_at IS NULL
-                // `) || []
-
-                                // .exec((err, user) => {
-                                //     if(user){
-                                //         console.log('Email Valid');
-                                //     }
-                                //     else{
-                                //         console.log('Email Doesn\'t exist');
-                                //     }
-                                // })
-    console.log('=========2=======');
-    // console.log(login_q);
-
-
-    // Auth.login(formData, (err, data) => {
-    //     if (err) {
-    //         return set_response(res, data, 401, 'failed', err.message)
-    //     } else {
-    //         return set_response(res, data, 200, 'success', ['Successfully logged in'])
-    //     }
-    // });
 
 
     return set_response(res, data, 200, 'success', ['Successfully logged in'])
