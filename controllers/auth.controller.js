@@ -37,6 +37,17 @@ exports.login = async (req, res) => {
     expires_at = moment().add(process.env.JWT_EXPIRES_IN, 'seconds').format('yy-MM-DD HH:mm:ss')
 
 
+    var userrolespermissions = await mongoResult(Users.findOne({ email: formData?.email }))
+    
+    // await sqlResult(`
+    //             SELECT users.id user_id, roles.id role_id, roles.role role, permissions.id permission_id, permissions.permission permission 
+    //             FROM users 
+    //             LEFT JOIN  userroles ON (users.id = userroles.user_id)
+    //             LEFT JOIN  roles ON (userroles.role_id = roles.id)
+    //             LEFT JOIN  rolepermissions ON (roles.id = rolepermissions.role_id)
+    //             LEFT JOIN  permissions ON (rolepermissions.permission_id = permissions.id)
+    //             WHERE  userroles.deleted_at IS NULL AND roles.deleted_at IS NULL AND rolepermissions.deleted_at IS NULL
+                `) || []
 
                                 // .exec((err, user) => {
                                 //     if(user){
