@@ -46,7 +46,8 @@ exports.login = async (req, res) => {
                                                     as: "roles"
                                                   }
                                              },
-                                             { $match: { email: formData?.email } }
+                                             { $match: { email: formData?.email } },
+                                            //  { $project: { role_ids: 0 } }
                                         ]
                                     )
                                 )
