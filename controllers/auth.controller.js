@@ -7,12 +7,8 @@ const jwt = require('jsonwebtoken');
 const moment = require('moment');
 
 exports.login = async (req, res) => {
-    console.log('==============');
     let formData = {...req.query, ...req.body}
 
-    console.log(formData);
-
-    console.log('=========1=======');
     const existingUserData = await mongoResult(Users.findOne({ email: formData?.email }))
     if (!existingUserData) {
         return set_response(res, null, 422, 'failed', ['Invalid email!'])
@@ -38,6 +34,7 @@ exports.login = async (req, res) => {
 
 
     var userrolespermissions = await mongoResult(Users.findOne({ email: formData?.email }))
+    console.log(userrolespermissions);
     
     // await sqlResult(`
     //             SELECT users.id user_id, roles.id role_id, roles.role role, permissions.id permission_id, permissions.permission permission 
