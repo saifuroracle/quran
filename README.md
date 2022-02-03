@@ -59,13 +59,11 @@ db.users.remove({});
 
 ## Backup
 ```
-cd /
-E:
-cd E:\Projects\0.personal\quran
-mongodump -d quran
-
-<!-- mongoexport --host="mongodb://localhost:27017" --db=quran --out=quran.json -->
-mongodump -h localhost:27017 -d quran -u user_name -p password -o quran.json
+  cmd: 
+    cd /
+    E:
+    cd E:\Projects\0.personal\quran
+    mongodump -d quran
 
 ```
 
