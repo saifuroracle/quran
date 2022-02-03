@@ -6,6 +6,10 @@ const RolesSchema = mongoose.Schema(
             type: String,
             required: true
         },
+        permission_ids: {
+            type: Array,
+            required: true
+        },
         createdAt: { type: Date, default: Date.now },
         updatedAt: { type: Date },
     }

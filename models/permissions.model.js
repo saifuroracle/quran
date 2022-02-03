@@ -6,6 +6,10 @@ const PermissionsSchema = mongoose.Schema(
             type: String,
             required: true
         },
+        module_id: {
+            type: Number,
+            required: true
+        },
         createdAt: { type: Date, default: Date.now },
         updatedAt: { type: Date },
     }
