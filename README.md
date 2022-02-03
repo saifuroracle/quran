@@ -7,6 +7,7 @@
 | Build With | Version  |
 | ---------- | -------- |
 | Node       | v14.16.1 |
+| Mongoose   | ^6.1.9   |
 
 # Structures
     * mongodb
@@ -18,6 +19,7 @@
     * middleware
     * api
     * mail
+      * handlebar
     * excel
     * csv
     * pdf
