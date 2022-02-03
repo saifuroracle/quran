@@ -33,8 +33,26 @@ exports.login = async (req, res) => {
     expires_at = moment().add(process.env.JWT_EXPIRES_IN, 'seconds').format('yy-MM-DD HH:mm:ss')
 
 
-    var userrolespermissions = await mongoResult(Users.findOne({ email: formData?.email }))
+    var userrolespermissions = await mongoResult(
+                                    Users
+                                    .aggregate(
+                                        [
+                                            {
+                                                $lookup:
+                                                  {     
+                                                    from: "users",
+                                                    localField: "role_ids",
+                                                    foreignField: "_id",
+                                                    as: "roles"
+                                                  }
+                                             }
+                                            //  { $match: { $expr: { email: formData?.email } } }
+                                        ]
+                                    )
+                                )
     console.log(userrolespermissions);
+
+    const data = userrolespermissions || {}
     
     // await sqlResult(`
     //             SELECT users.id user_id, roles.id role_id, roles.role role, permissions.id permission_id, permissions.permission permission 
@@ -67,5 +85,5 @@ exports.login = async (req, res) => {
     // });
 
 
-    return set_response(res, null, 200, 'success', ['Successfully logged in'])
+    return set_response(res, data, 200, 'success', ['Successfully logged in'])
 };

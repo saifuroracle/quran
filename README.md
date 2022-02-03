@@ -57,6 +57,17 @@ db.users.remove({});
 
 ```
 
+## Backup
+```
+cd /
+E:
+cd E:\Projects\0.personal\quran
+mongodump -d quran
+
+<!-- mongoexport --host="mongodb://localhost:27017" --db=quran --out=quran.json -->
+mongodump -h localhost:27017 -d quran -u user_name -p password -o quran.json
+
+```
 
 # Resource
 * https://www.youtube.com/watch?v=vjf774RKrLc&t=789s
