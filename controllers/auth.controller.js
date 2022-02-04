@@ -55,7 +55,8 @@ exports.login = async (req, res) => {
                                                     foreignField: "_id",
                                                     as: "permissions",
                                                 }
-                                            },
+                                            }
+                                            // ,
                                             // { $match: { email: formData?.email } },
                                             //  { $project: { role_ids: 0 } }
                                         ]
