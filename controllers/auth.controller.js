@@ -51,14 +51,13 @@ exports.login = async (req, res) => {
                                             {
                                                 $lookup: {
                                                     from: "permissions",
-                                                    localField: "permission_ids",
+                                                    localField: "roles.permission_ids",
                                                     foreignField: "_id",
                                                     as: "permissions",
                                                 }
-                                            }
-                                            // ,
-                                            // { $match: { email: formData?.email } },
-                                            //  { $project: { role_ids: 0 } }
+                                            },
+                                            { $match: { email: formData?.email } },
+                                            { $project: { role_ids: 0 } }
                                         ]
                                     )
                                 )
