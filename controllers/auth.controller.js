@@ -46,19 +46,17 @@ exports.login = async (req, res) => {
                                                 }
                                             },
                                             {
-                                                $unwind: {
-                                                    path: "$roles",
-                                                }
+                                                $unwind:  "$roles",
                                             },
                                             {
                                                 $lookup: {
-                                                    from: "addressComment",
-                                                    localField: "address._id",
-                                                    foreignField: "address_id",
-                                                    as: "address.addressComment",
+                                                    from: "permissions",
+                                                    localField: "permission_ids",
+                                                    foreignField: "_id",
+                                                    as: "permissions",
                                                 }
-                                            }
-                                            { $match: { email: formData?.email } },
+                                            },
+                                            // { $match: { email: formData?.email } },
                                             //  { $project: { role_ids: 0 } }
                                         ]
                                     )
