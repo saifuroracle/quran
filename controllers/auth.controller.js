@@ -94,7 +94,10 @@ exports.login = async (req, res) => {
 
     var data = {
         user: {
-            ...existingUserData
+            ...existingUserData,
+            'access_token': null,
+            'token_type': 'Bearer',
+            'expires_at': null,
         },
         roles: roles || [],
         permissions: permissions || [],
