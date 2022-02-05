@@ -38,7 +38,7 @@ exports.login = async (req, res) => {
         role_ids: existingUserData.role_ids,
     }
 
-    var token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: parseInt(process.env.JWT_EXPIRES_IN) });
+    var token = jwt.sign({...existingUserData}, process.env.JWT_SECRET, { expiresIn: parseInt(process.env.JWT_EXPIRES_IN) });
 
     expires_at = moment().add(process.env.JWT_EXPIRES_IN, 'seconds').format('yy-MM-DD HH:mm:ss')
 
@@ -93,7 +93,9 @@ exports.login = async (req, res) => {
     permissions = permissions.filter(unique)   // permissions data
 
     var data = {
-        user: {},
+        user: {
+            ...existingUserData
+        },
         roles: roles || [],
         permissions: permissions || [],
     }
