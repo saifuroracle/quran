@@ -29,6 +29,7 @@ exports.login = async (req, res) => {
 
     delete existingUserData.password
 
+
     var token = jwt.sign({ ...existingUserData }, process.env.JWT_SECRET, { expiresIn: parseInt(process.env.JWT_EXPIRES_IN) });
 
     expires_at = moment().add(process.env.JWT_EXPIRES_IN, 'seconds').format('yy-MM-DD HH:mm:ss')
@@ -83,7 +84,11 @@ exports.login = async (req, res) => {
     });
     permissions = permissions.filter(unique)   // permissions data
 
-    const data = userrolespermissions || {}
+    var data = {
+        user: {},
+        roles: roles || [],
+        permissions: permissions || [],
+    }
 
     return set_response(res, data, 200, 'success', ['Successfully logged in'])
 };
