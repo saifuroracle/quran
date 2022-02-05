@@ -11,6 +11,7 @@ exports.login = async (req, res) => {
     let formData = { ...req.query, ...req.body }
 
     const existingUserData = await mongoResult(Users.findOne({ email: formData?.email }))
+
     if (!existingUserData) {
         return set_response(res, null, 422, 'failed', ['Invalid email!'])
     }
@@ -29,8 +30,15 @@ exports.login = async (req, res) => {
 
     delete existingUserData.password
 
+    const payload = {
+        name: existingUserData.name,
+        email: existingUserData.email,
+        password: existingUserData.password,
+        status: existingUserData.status,
+        role_ids: existingUserData.role_ids,
+    }
 
-    var token = jwt.sign({ ...existingUserData }, process.env.JWT_SECRET, { expiresIn: parseInt(process.env.JWT_EXPIRES_IN) });
+    var token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: parseInt(process.env.JWT_EXPIRES_IN) });
 
     expires_at = moment().add(process.env.JWT_EXPIRES_IN, 'seconds').format('yy-MM-DD HH:mm:ss')
 
