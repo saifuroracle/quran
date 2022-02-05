@@ -32,13 +32,6 @@ exports.login = async (req, res) => {
 
     delete existingUserData.password
 
-    const payload = {
-        name: existingUserData.name,
-        email: existingUserData.email,
-        password: existingUserData.password,
-        status: existingUserData.status,
-        role_ids: existingUserData.role_ids,
-    }
 
     var token = jwt.sign({...existingUserData}, process.env.JWT_SECRET, { expiresIn: parseInt(process.env.JWT_EXPIRES_IN) });
 
@@ -110,10 +103,34 @@ exports.login = async (req, res) => {
         AccessTokens.find({
             user_id: existingUserData._id,
             status: 'active',
-            "expires_at": { $gt: now }
+            expires_at: { $gt: now }
         })
     )
-    console.log(user_existing_valid_access_token_q);
+    if (user_existing_valid_access_token_q.length==0) 
+    {
+        access_token_row = {
+            'user_id': existingUserData._id,
+            'token': token,
+            'status': 'active',
+            'expires_at': expires_at,
+        }
+
+        // sql.query(`INSERT INTO access_tokens SET ?`, access_token_row);
+
+        // data = {
+        //     'user': {
+        //         ...userData,
+        //         'access_token': token,
+        //         'token_type': 'Bearer',
+        //         'expires_at': expires_at,
+        //     },
+        //     'roles': roles || [],
+        //     'permissions': permissions || [],
+        // }
+
+        // result(null, data);
+        // return;
+    }
     // await mongoResult(`SELECT * FROM access_tokens WHERE user_id = ${sql.escape(userData.id)} 
     //                                                             AND status=1 
     //                                                             AND expires_at>'${now}';`)
