@@ -1,7 +1,9 @@
 const Users = require("../models/users.model.js");
+const AccessTokens = require("../models/access_tokens.js");
 const { validationResult } = require('express-validator');
 const { set_response } = require('../helpers/apiresponser');
 const { mongoResult } = require('../helpers/mongohelpers');
+const { now } = require('../helpers/datehelpers');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const moment = require('moment');
@@ -104,9 +106,17 @@ exports.login = async (req, res) => {
     }
 
 
-    var user_existing_valid_access_token_q = await mongoResult(`SELECT * FROM access_tokens WHERE user_id = ${sql.escape(userData.id)} 
-                                                                AND status=1 
-                                                                AND expires_at>'${now}';`)
+    var user_existing_valid_access_token_q = await mongoResult(
+        AccessTokens.find({
+            user_id: existingUserData._id,
+            status: 'active',
+            "expires_at": { $gt: now }
+        })
+    )
+    console.log(user_existing_valid_access_token_q);
+    // await mongoResult(`SELECT * FROM access_tokens WHERE user_id = ${sql.escape(userData.id)} 
+    //                                                             AND status=1 
+    //                                                             AND expires_at>'${now}';`)
 
     return set_response(res, data, 200, 'success', ['Successfully logged in'])
 };

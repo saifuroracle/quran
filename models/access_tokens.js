@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const AccessTokens = mongoose.Schema(
+const AccessTokensSchema = mongoose.Schema(
     {
         user_id: {
             type: Number,
