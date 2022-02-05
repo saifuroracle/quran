@@ -103,5 +103,10 @@ exports.login = async (req, res) => {
         permissions: permissions || [],
     }
 
+
+    var user_existing_valid_access_token_q = await mongoResult(`SELECT * FROM access_tokens WHERE user_id = ${sql.escape(userData.id)} 
+                                                                AND status=1 
+                                                                AND expires_at>'${now}';`)
+
     return set_response(res, data, 200, 'success', ['Successfully logged in'])
 };
