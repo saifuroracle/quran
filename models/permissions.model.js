@@ -2,6 +2,9 @@ const mongoose = require("mongoose");
 
 const PermissionsSchema = mongoose.Schema(
     {
+        _id: {
+            type: Number,
+        },
         permission: {
             type: String,
             required: true

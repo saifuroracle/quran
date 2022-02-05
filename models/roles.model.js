@@ -2,6 +2,9 @@ const mongoose = require("mongoose");
 
 const RolesSchema = mongoose.Schema(
     {
+        _id: {
+            type: Number,
+        },
         role: {
             type: String,
             required: true
