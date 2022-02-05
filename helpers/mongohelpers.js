@@ -7,7 +7,9 @@ const mongoResult = exports.mongoResult = async(command) => {
             if (error){
                 return reject(error);
             }
-            resolve(data);
+            const string = JSON.stringify(data);
+            const json = JSON.parse(string);
+            resolve(json);
         })
     });
 
