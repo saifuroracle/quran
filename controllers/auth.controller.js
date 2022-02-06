@@ -39,39 +39,39 @@ exports.login = async (req, res) => {
 
 
     var userrolespermissions = await Users.aggregate(
-                [
-                    {
-                        $lookup: {
-                            from: "roles",
-                            localField: "role_ids",
-                            foreignField: "_id",
-                            as: "roles"
-                        }
-                    },
-                    {
-                        $unwind: "$roles",
-                    },
-                    {
-                        $lookup: {
-                            from: "permissions",
-                            localField: "roles.permission_ids",
-                            foreignField: "_id",
-                            as: "permissions",
-                        }
-                    },
-                    {
-                        $match: {
-                            email: formData?.email
-                        }
-                    },
-                    {
-                        $project: {
-                            role_ids: 0,
-                            "roles.permission_ids": 0
-                        }
-                    }
-                ]
-            )
+                                    [
+                                        {
+                                            $lookup: {
+                                                from: "roles",
+                                                localField: "role_ids",
+                                                foreignField: "_id",
+                                                as: "roles"
+                                            }
+                                        },
+                                        {
+                                            $unwind: "$roles",
+                                        },
+                                        {
+                                            $lookup: {
+                                                from: "permissions",
+                                                localField: "roles.permission_ids",
+                                                foreignField: "_id",
+                                                as: "permissions",
+                                            }
+                                        },
+                                        {
+                                            $match: {
+                                                email: formData?.email
+                                            }
+                                        },
+                                        {
+                                            $project: {
+                                                role_ids: 0,
+                                                "roles.permission_ids": 0
+                                            }
+                                        }
+                                    ]
+                                )
 
 
     var roles = userrolespermissions?.map(item => item?.roles?.role)  // roles data
