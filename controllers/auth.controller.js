@@ -109,11 +109,18 @@ exports.login = async (req, res) => {
     if (user_existing_valid_access_token_q.length==0) 
     {
         access_token_row = {
-            'user_id': existingUserData._id,
-            'token': token,
-            'status': 'active',
-            'expires_at': expires_at,
+            "user_id": existingUserData._id,
+            "token": token,
+            "status": "active",
+            "expires_at": expires_at,
         }
+
+        const access_token = await mongoResult(AccessTokens.insert({
+            "user_id": existingUserData._id,
+            "token": token,
+            "status": "active",
+            "expires_at": expires_at,
+        }))
 
         // sql.query(`INSERT INTO access_tokens SET ?`, access_token_row);
 
