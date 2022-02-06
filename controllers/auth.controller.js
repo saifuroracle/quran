@@ -2,17 +2,19 @@ const Users = require("../models/users.model.js");
 const AccessTokens = require("../models/access_tokens.js");
 const { validationResult } = require('express-validator');
 const { set_response } = require('../helpers/apiresponser');
-const { mongoResult } = require('../helpers/mongohelpers');
 const { now } = require('../helpers/datehelpers');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const moment = require('moment');
-const { unique } = require('../helpers/datahelpers');
+const { unique, json_process } = require('../helpers/datahelpers');
 
 exports.login = async (req, res) => {
     let formData = { ...req.query, ...req.body }
 
-    const existingUserData = await Users.findOne({ email: formData?.email })
+    let existingUserData = await Users.findOne({ email: formData?.email })
+    console.log(existingUserData);
+    existingUserData = await json_process(existingUserData)
+    console.log(existingUserData);
 
     if (!existingUserData) {
         return set_response(res, null, 422, 'failed', ['Invalid email!'])
@@ -73,6 +75,7 @@ exports.login = async (req, res) => {
                                     ]
                                 )
 
+    userrolespermissions = await json_process(userrolespermissions)
 
     var roles = userrolespermissions?.map(item => item?.roles?.role)  // roles data
     var permissions = []
@@ -101,6 +104,7 @@ exports.login = async (req, res) => {
             status: 'active',
             expires_at: { $gt: now }
         })
+    user_existing_valid_access_token_q = await json_process(user_existing_valid_access_token_q)
 
     if (user_existing_valid_access_token_q.length==0) 
     {
