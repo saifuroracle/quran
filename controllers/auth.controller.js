@@ -12,9 +12,7 @@ exports.login = async (req, res) => {
     let formData = { ...req.query, ...req.body }
 
     let existingUserData = await Users.findOne({ email: formData?.email })
-    console.log(existingUserData);
     existingUserData = await json_process(existingUserData)
-    console.log(existingUserData);
 
     if (!existingUserData) {
         return set_response(res, null, 422, 'failed', ['Invalid email!'])
