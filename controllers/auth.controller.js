@@ -12,7 +12,7 @@ const { unique } = require('../helpers/datahelpers');
 exports.login = async (req, res) => {
     let formData = { ...req.query, ...req.body }
 
-    const existingUserData = await mongoResult(Users.findOne({ email: formData?.email }))
+    const existingUserData = await Users.findOne({ email: formData?.email })
 
     if (!existingUserData) {
         return set_response(res, null, 422, 'failed', ['Invalid email!'])
@@ -38,9 +38,7 @@ exports.login = async (req, res) => {
     expires_at = moment().add(process.env.JWT_EXPIRES_IN, 'seconds').format('yy-MM-DD HH:mm:ss')
 
 
-    var userrolespermissions = await mongoResult(
-        Users
-            .aggregate(
+    var userrolespermissions = await Users.aggregate(
                 [
                     {
                         $lookup: {
@@ -74,7 +72,6 @@ exports.login = async (req, res) => {
                     }
                 ]
             )
-    )
 
 
     var roles = userrolespermissions?.map(item => item?.roles?.role)  // roles data
@@ -99,23 +96,22 @@ exports.login = async (req, res) => {
     }
 
 
-    var user_existing_valid_access_token_q = await mongoResult(
-        AccessTokens.find({
+    var user_existing_valid_access_token_q = await AccessTokens.find({
             user_id: existingUserData._id,
             status: 'active',
             expires_at: { $gt: now }
         })
-    )
+
     if (user_existing_valid_access_token_q.length==0) 
     {
-        const access_token_row = new AccessTokens({
+        let access_token_row = new AccessTokens({
             "user_id": existingUserData._id,
             "token": token,
             "status": "active",
             "expires_at": expires_at,
         })
 
-        await access_token_row.save().then(data => {
+        access_token_row = await access_token_row.save().then(data => {
             console.log(data);
         }).catch(err => {
             console.log(err);
