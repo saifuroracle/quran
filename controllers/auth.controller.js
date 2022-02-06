@@ -115,7 +115,11 @@ exports.login = async (req, res) => {
             "expires_at": expires_at,
         })
 
-        access_token_row.save()
+        await access_token_row.save().then(data => {
+            console.log(data);
+        }).catch(err => {
+            console.log(err);
+        })
 
         // const access_token = await mongoResult(AccessTokens.insert({
         //     "user_id": existingUserData._id,
