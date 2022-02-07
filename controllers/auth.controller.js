@@ -142,9 +142,20 @@ exports.login = async (req, res) => {
         // result(null, data);
         // return;
     }
-    // await mongoResult(`SELECT * FROM access_tokens WHERE user_id = ${sql.escape(userData.id)} 
-    //                                                             AND status=1 
-    //                                                             AND expires_at>'${now}';`)
+    else if (user_existing_valid_access_token_q.length) {
+        console.log('user_existing_valid_access_token_q.length ', user_existing_valid_access_token_q.length);
+        expires_at = moment(user_existing_valid_access_token_q[0].expires_at).format('yy-MM-DD HH:mm:ss')
+        console.log(user_existing_valid_access_token_q[0].expires_at, expires_at);
 
+        data = {
+            ...data,
+            user:{
+                ...data.user,
+                'access_token': user_existing_valid_access_token_q[0].token,
+            }
+        }
+        
+    }
+    
     return set_response(res, data, 200, 'success', ['Successfully logged in'])
 };
