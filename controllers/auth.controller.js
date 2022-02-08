@@ -143,3 +143,12 @@ exports.login = async (req, res) => {
     return set_response(res, data, 200, 'success', ['Successfully logged in'])
 };
 
+
+
+exports.me = (req, res) => {
+
+    formData = {
+        "authorization": req.headers.authorization || ('Bearer ' + req.body.access_token),
+    };
+
+};
