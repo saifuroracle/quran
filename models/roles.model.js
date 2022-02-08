@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const RolesSchema = mongoose.Schema(
     {
         _id: {
-            type: Number,
+            type: mongoose.Types.ObjectId,
         },
         role: {
             type: String,
