@@ -151,5 +151,9 @@ exports.me = (req, res) => {
         "authorization": req.headers.authorization || ('Bearer ' + req.body.access_token),
     };
 
+    const access_token = formData.authorization.split(' ')[1];
+    const decoded = jwt.verify(access_token, process.env.JWT_SECRET);
+    console.log(decoded);
+
     return set_response(res, data, 200, 'success', ['My user data!'])
 };
