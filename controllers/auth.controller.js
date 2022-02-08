@@ -145,7 +145,7 @@ exports.login = async (req, res) => {
 
 
 
-exports.me = (req, res) => {
+exports.me = async (req, res) => {
 
     formData = {
         "authorization": req.headers.authorization || ('Bearer ' + req.body.access_token),
@@ -153,7 +153,32 @@ exports.me = (req, res) => {
 
     const access_token = formData.authorization.split(' ')[1];
     const decoded = jwt.verify(access_token, process.env.JWT_SECRET);
-    console.log(decoded);
 
-    return set_response(res, data, 200, 'success', ['My user data!'])
+    var access_token_row_db = []
+    var user_data_db = {}
+    if (decoded) {
+        access_token_row_db =  await AccessTokens.find({
+                                    user_id: decoded._id,
+                                    status: 'active',
+                                    expires_at: { $gt: now }
+                                })
+  
+        user_data_db = await Users.findOne({ _id: decoded._id, expires_at: { $lte: now } }) || {}
+        
+
+        prev_access_tokens_expiring = await AccessTokens.updateMany(
+                                        {
+                                            expires_at: { $lte: now }
+                                        },
+                                        {
+                                            $set: {
+                                                user_id: decoded._id,
+                                                status: 'inactive',
+                                            }
+                                        }
+                                    )
+        
+    }
+
+    return set_response(res, null, 200, 'success', ['My user data!'])
 };
