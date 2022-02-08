@@ -130,9 +130,7 @@ exports.login = async (req, res) => {
 
     }
     else if (user_existing_valid_access_token_q.length) {
-        // console.log('user_existing_valid_access_token_q.length ', user_existing_valid_access_token_q.length);
         expires_at = moment(user_existing_valid_access_token_q[0].expires_at).format('yy-MM-DD HH:mm:ss')
-        // console.log(user_existing_valid_access_token_q[0].expires_at, expires_at);
 
         data = {
             ...data,
@@ -142,7 +140,6 @@ exports.login = async (req, res) => {
                 'expires_at': expires_at,
             }
         }
-        
     }
 
     return set_response(res, data, 200, 'success', ['Successfully logged in'])
