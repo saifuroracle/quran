@@ -5,13 +5,9 @@ exports.exists = async (collection, column, data) => {
     
     let existingData = await model.findOne({ [column]: data }) || {}
     existingData = await json_process(existingData)
-    // console.log(model);
-    // console.log(existingData);
-    // console.log({ [column]: data });
 
     let exists = 0 
 
-    // console.log('existingData[column]', existingData[column]);
     if (existingData[column] && existingData[column] == data) {
         exists = 1
     }
