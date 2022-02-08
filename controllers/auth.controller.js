@@ -167,17 +167,17 @@ exports.me = async (req, res) => {
         
 
         prev_access_tokens_expiring = await AccessTokens.updateMany(
-                                        {
-                                            expires_at: { $lte: now }
-                                        },
-                                        {
-                                            $set: {
-                                                user_id: decoded._id,
-                                                status: 'inactive',
+                                            {
+                                                expires_at: { $lte: now }
+                                            },
+                                            {
+                                                $set: {
+                                                    user_id: decoded._id,
+                                                    status: 'inactive',
+                                                }
                                             }
-                                        }
-                                    )
-        
+                                        )
+            
     }
 
     return set_response(res, null, 200, 'success', ['My user data!'])
