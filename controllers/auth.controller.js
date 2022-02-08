@@ -90,7 +90,7 @@ exports.login = async (req, res) => {
             ...existingUserData,
             'access_token': null,
             'token_type': 'Bearer',
-            'expires_at': null,
+            'expires_at': expires_at,
         },
         roles: roles || [],
         permissions: permissions || [],
@@ -124,7 +124,6 @@ exports.login = async (req, res) => {
             user:{
                 ...data.user,
                 'access_token': token,
-                'expires_at': expires_at,
             }
         }
 
