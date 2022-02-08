@@ -114,25 +114,23 @@ exports.login = async (req, res) => {
         })
 
         access_token_row = await access_token_row.save().then(data => {
-            console.log(data);
         }).catch(err => {
-            console.log(err);
         })
 
         data = {
             ...data,
             user:{
                 ...data.user,
-                'access_token': user_existing_valid_access_token_q[0].token,
+                'access_token': token,
                 'expires_at': expires_at,
             }
         }
 
     }
     else if (user_existing_valid_access_token_q.length) {
-        console.log('user_existing_valid_access_token_q.length ', user_existing_valid_access_token_q.length);
+        // console.log('user_existing_valid_access_token_q.length ', user_existing_valid_access_token_q.length);
         expires_at = moment(user_existing_valid_access_token_q[0].expires_at).format('yy-MM-DD HH:mm:ss')
-        console.log(user_existing_valid_access_token_q[0].expires_at, expires_at);
+        // console.log(user_existing_valid_access_token_q[0].expires_at, expires_at);
 
         data = {
             ...data,
