@@ -1,7 +1,6 @@
 const { body, validationResult } = require('express-validator');
 const { set_response } = require('../helpers/apiresponser');
-// const validationrules = require('../helpers/validationrules')
-
+const validationrules = require('../helpers/validationrules')
 
 
 
@@ -18,9 +17,9 @@ exports.loginValidation = [
         }
 
         // DB level validations
-        // if (! await  validationrules.exists('users', 'email', req?.body?.email)) {
-        //     return set_response(res, null, 422, 'failed', ['Invalid email'])
-        // }
+        if (! await  validationrules.exists('users', 'email', req?.body?.email)) {
+            return set_response(res, null, 422, 'failed', ['Invalid email'])
+        }
 
         next()
     }

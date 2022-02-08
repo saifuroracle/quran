@@ -11,7 +11,7 @@ const { unique, json_process } = require('../helpers/datahelpers');
 exports.login = async (req, res) => {
     let formData = { ...req.query, ...req.body }
 
-    let existingUserData = await Users.findOne({ email: formData?.email })
+    let existingUserData = await Users.findOne({ email: formData?.email }) || {}
     existingUserData = await json_process(existingUserData)
 
     if (!existingUserData) {
