@@ -103,7 +103,6 @@ exports.login = async (req, res) => {
             status: 'active',
             expires_at: { $gt: now }
         })
-    console.log(user_existing_valid_access_token_q);
     user_existing_valid_access_token_q = await json_process(user_existing_valid_access_token_q)
 
     if (user_existing_valid_access_token_q.length==0) 
