@@ -151,4 +151,5 @@ exports.me = (req, res) => {
         "authorization": req.headers.authorization || ('Bearer ' + req.body.access_token),
     };
 
+    return set_response(res, data, 200, 'success', ['My user data!'])
 };
