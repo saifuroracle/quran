@@ -26,9 +26,11 @@ exports.register = async(req, res) => {
         return data
     }).catch(err => {
     })
+    user_data = await json_process(user_data)
+    delete user_data.password
+    delete user_data.role_ids
 
-    console.log(user_data);
-    return set_response(res, null, 200, 'success', ['Successfully completed'])
+    return set_response(res, user_data, 200, 'success', ['Successfully completed'])
 };
 
 
