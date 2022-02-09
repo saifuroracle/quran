@@ -14,9 +14,17 @@ exports.exists = async (collection, column, data) => {
     return exists
 }
 
-// exports.unique = async (tableName, column, data, column_to_ignore, column_to_ignore_data) => {
-//     let append_condition = (column_to_ignore && column_to_ignore_data) ? ` AND ${column_to_ignore}!='${column_to_ignore_data}'` : '';
+exports.unique = async (collection, column, data, column_to_ignore, column_to_ignore_data) => {
+    const model = require(`../models/${collection}.model.js`);
 
-//     let is_exist = ( await sqlResult(`SELECT count('${column}') as total_count FROM ${tableName} WHERE ${column}='${data}' ${append_condition} `))[0].total_count || 0 
-//     return is_exist ? 0 : 1
-// }
+    let existingData = []
+
+    if (column_to_ignore && column_to_ignore_data) {
+        existingData = await model.find({ [column]: data, [column_to_ignore]: { $ne:column_to_ignore } }) || []
+    } else {
+        existingData = await model.find({ [column]: data }) || []
+    }
+    existingData = await json_process(existingData)
+
+    return existingData.length ? 0 : 1
+}

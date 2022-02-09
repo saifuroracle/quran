@@ -16,9 +16,9 @@ exports.registerValidation = [
         }
 
         // DB level validations
-        // if (! await  validationrules.unique('users', 'email', req?.body?.email)) {
-        //     return set_response(res, null, 422, 'failed', ['Duplicate email already exists'])
-        // }
+        if (! await  validationrules.unique('users', 'email', req?.body?.email)) {
+            return set_response(res, null, 422, 'failed', ['Duplicate email already exists'])
+        }
         next()
     }
 ]

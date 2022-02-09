@@ -8,9 +8,22 @@ const jwt = require('jsonwebtoken');
 const moment = require('moment');
 const { unique, json_process } = require('../helpers/datahelpers');
 
-exports.register = (req, res) => {
+exports.register = async(req, res) => {
 
     let formData = {...req.query, ...req.body}
+    formData.password = bcrypt.hashSync(formData.password, 10)
+    formData.status = 1
+
+    let new_user = new User({
+        "password": formData.password,
+        "email": formData.email,
+        "status": 'active',
+    })
+    user_data = await new_user.save().then(data => {
+    }).catch(err => {
+    })
+
+    console.log(user_data);
 
     return set_response(res, data, 200, 'success', ['Successfully completed'])
 
