@@ -185,7 +185,7 @@ exports.me = async (req, res) => {
     if (decoded && access_token_row_db.length && user_data_db.email==decoded.email) {
 
         delete user_data_db.password
-        
+
         var userrolespermissions = await Users.aggregate(
                                         [
                                             {
@@ -209,7 +209,7 @@ exports.me = async (req, res) => {
                                             },
                                             {
                                                 $match: {
-                                                    email: formData?.email
+                                                    email: user_data_db?.email
                                                 }
                                             },
                                             {
