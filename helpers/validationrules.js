@@ -1,3 +1,4 @@
+const mongoose = require("mongoose");
 const { unique, json_process } = require('../helpers/datahelpers');
 
 exports.exists = async (collection, column, data) => {
@@ -27,4 +28,8 @@ exports.unique = async (collection, column, data, column_to_ignore, column_to_ig
     existingData = await json_process(existingData)
 
     return existingData.length ? 0 : 1
+}
+
+exports.ObjectIdValidity = async (_id) => {
+    return mongoose.Types.ObjectId.isValid(_id)
 }
