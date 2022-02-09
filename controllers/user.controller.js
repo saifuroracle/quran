@@ -33,3 +33,10 @@ exports.userStatusUpdate = async (req, res) => {
     return set_response(res, null, 200, 'success', ['Successfully user status updated'])
 };
 
+
+
+exports.getAllUsers_p = (req, res) => {
+    let formData = {...req.query, ...req.body}
+
+    return set_response(res, null, 200, 'success', ['Users data.'])
+};

@@ -8,7 +8,7 @@ module.exports = app => {
 
     app.post(prefix + "/user-status-update", authMiddlware, checkpermissionMiddlware('user update'), userStatusValidation, user.userStatusUpdate);
     app.post(prefix + "/getUser", authMiddlware, checkpermissionMiddlware('user list'), getUserValidation, user.getUser);
-    // app.post(prefix + "/getAllUsers_p", authMiddlware, checkpermissionMiddlware('user list'), user.getAllUsers_p);
+    app.post(prefix + "/getAllUsers_p", authMiddlware, checkpermissionMiddlware('user list'), user.getAllUsers_p);
     // app.post(prefix + "/createUser", authMiddlware, checkpermissionMiddlware('user create'), createUserValidation, user.createUser);
     // app.post(prefix + "/updateUser", authMiddlware, checkpermissionMiddlware('user update'), updateUserValidation, user.updateUser);
     
