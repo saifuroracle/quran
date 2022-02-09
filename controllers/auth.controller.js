@@ -15,9 +15,9 @@ exports.register = async(req, res) => {
     formData.status = 1
 
     let new_user = new User({
-        "password": formData.password,
         "email": formData.email,
-        "status": 'active',
+        "password": formData.password,
+        "status": "active",
     })
     user_data = await new_user.save().then(data => {
     }).catch(err => {
