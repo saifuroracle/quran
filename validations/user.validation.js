@@ -4,8 +4,7 @@ const validationrules = require('../helpers/validationrules')
 
 
 exports.getUserValidation = [
-    body('id', 'User id is required').notEmpty(),
-    body('id', 'User id is must be numeric').isNumeric(),
+    body('_id', 'User id is required').notEmpty(),
 
     async (req, res, next) => {
         
@@ -16,7 +15,7 @@ exports.getUserValidation = [
         }
 
         // DB level validations
-        if (! await  validationrules.exists('users', 'id', req?.body?.id)) {
+        if (! await  validationrules.exists('users', '_id', req?.body?._id)) {
             return set_response(res, null, 422, 'failed', ['Invalid id'])
         }
         

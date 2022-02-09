@@ -2,7 +2,7 @@ module.exports = app => {
     const user = require("../controllers/user.controller.js");
     const { createUserValidation, updateUserValidation, userStatusValidation, getUserValidation } = require("../validations/user.validation");
     const { authMiddlware } = require("../middlewares/auth.middleware");
-    const { checkpermissionMiddlware } = require("../middlewares/checkpermission.middleware");
+    // const { checkpermissionMiddlware } = require("../middlewares/checkpermission.middleware");
 
     prefix = "/api/v1/user"
 
