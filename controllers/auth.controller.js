@@ -263,18 +263,17 @@ exports.logout = async (req, res) => {
 
     const decoded = jwt.verify(access_token, process.env.JWT_SECRET);
     if (decoded) {
-        var logout_q = await AccessTokens.updateMany(
-                            {
-                                user_id: decoded._id,
-                                token: access_token,
-                            },
-                            {
-                                $set: {
-                                    status: 'inactive',
-                                }
-                            }
-                        )
-        
+        await AccessTokens.updateMany(
+            {
+                user_id: decoded._id,
+                token: access_token,
+            },
+            {
+                $set: {
+                    status: 'inactive',
+                }
+            }
+        )
         
         return set_response(res, null, 200, 'success', ['Successfully logged out!'])
     }
