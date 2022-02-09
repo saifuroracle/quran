@@ -3,7 +3,7 @@ module.exports = app => {
     const auth = require("../controllers/auth.controller.js");
     // const { body, validationResult } = require('express-validator');
     const { registerValidation, loginValidation, changePasswordValidation } = require("../validations/auth.validation");
-    // const { authMiddlware } = require("../middlewares/auth.middleware");
+    const { authMiddlware } = require("../middlewares/auth.middleware");
 
     prefix = "/api/v1/auth"
 
@@ -13,8 +13,7 @@ module.exports = app => {
         //     console.log('------------------');
     // });
     app.post(prefix + "/login", loginValidation, auth.login);
-    // app.post(prefix + "/me", authMiddlware, auth.me);
-    app.post(prefix + "/me", auth.me);
+    app.post(prefix + "/me", authMiddlware, auth.me);
     // app.post(prefix + "/logout", authMiddlware, auth.logout);
     // app.post(prefix + "/change-password", authMiddlware, changePasswordValidation, auth.changePassword);
 
