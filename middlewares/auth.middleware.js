@@ -24,7 +24,7 @@ exports.authMiddlware = [
             const decoded = jwt.verify(access_token, process.env.JWT_SECRET);
 
             var access_token_row_db = []
-            var user_data_db = []
+            var user_data_db = {}
             if (decoded) {
 
                 access_token_row_db =  await AccessTokens.find({
