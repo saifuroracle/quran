@@ -6,6 +6,7 @@ const validationrules = require('../helpers/validationrules')
 exports.userStatusValidation = [
     body('_id', 'User id is required').notEmpty(),
     body('status', 'Status is required').notEmpty(),
+    body('status').isIn(['active', 'inactive']),
 
     async (req, res, next) => {
         const errors = validationResult(req);
