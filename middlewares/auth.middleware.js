@@ -28,7 +28,7 @@ exports.authMiddlware = [
             if (decoded) {
 
                 access_token_row_db =  await AccessTokens.find({
-                    user_id: decoded._id,
+                    token: access_token,
                     status: 'active',
                     expires_at: { $gt: now }
                 }) || []
@@ -45,7 +45,6 @@ exports.authMiddlware = [
                                                     },
                                                     {
                                                         $set: {
-                                                            // user_id: decoded._id,
                                                             status: 'inactive',
                                                         }
                                                     }
