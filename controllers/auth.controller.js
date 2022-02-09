@@ -7,6 +7,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const moment = require('moment');
 const { unique, json_process } = require('../helpers/datahelpers');
+const mongoose = require("mongoose");
 
 exports.register = async(req, res) => {
 
@@ -14,19 +15,20 @@ exports.register = async(req, res) => {
     formData.password = bcrypt.hashSync(formData.password, 10)
     formData.status = 1
 
-    let new_user = new User({
+    let new_user = new Users({
+        "_id": new mongoose.Types.ObjectId,
+        "name": formData.name,
         "email": formData.email,
         "password": formData.password,
         "status": "active",
     })
     user_data = await new_user.save().then(data => {
+        return data
     }).catch(err => {
     })
 
     console.log(user_data);
-
-    return set_response(res, data, 200, 'success', ['Successfully completed'])
-
+    return set_response(res, null, 200, 'success', ['Successfully completed'])
 };
 
 
