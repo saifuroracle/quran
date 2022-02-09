@@ -180,5 +180,75 @@ exports.me = async (req, res) => {
             
     }
 
-    return set_response(res, null, 200, 'success', ['My user data!'])
+    console.log(user_data_db);
+    console.log(decoded);
+
+    if (decoded && access_token_row_db.length && user_data_db.email==decoded.email) {
+
+        delete user_data_db.password
+        
+        var userrolespermissions = await Users.aggregate(
+                                        [
+                                            {
+                                                $lookup: {
+                                                    from: "roles",
+                                                    localField: "role_ids",
+                                                    foreignField: "_id",
+                                                    as: "roles"
+                                                }
+                                            },
+                                            {
+                                                $unwind: "$roles",
+                                            },
+                                            {
+                                                $lookup: {
+                                                    from: "permissions",
+                                                    localField: "roles.permission_ids",
+                                                    foreignField: "_id",
+                                                    as: "permissions",
+                                                }
+                                            },
+                                            {
+                                                $match: {
+                                                    email: formData?.email
+                                                }
+                                            },
+                                            {
+                                                $project: {
+                                                    role_ids: 0,
+                                                    "roles.permission_ids": 0
+                                                }
+                                            }
+                                        ]
+                                    ) || []
+
+        userrolespermissions = await json_process(userrolespermissions)
+
+        var roles = userrolespermissions?.map(item => item?.roles?.role)  // roles data
+        var permissions = []
+        userrolespermissions?.forEach(item => {
+            const permissions_arr = item.permissions
+            permissions_arr.forEach(permission => {
+                permissions.push(permission.permission)
+            });
+        });
+        permissions = permissions.filter(unique)   // permissions data
+
+        data = {
+            'user': {
+                ...user_data_db,
+                'access_token': access_token,
+                'token_type': 'Bearer',
+                'expires_at': moment(decoded.exp * 1000).format('yy-MM-DD HH:mm:ss'), // exp = seconds not milliseconds
+            },
+            'roles': roles || [],
+            'permissions': permissions || [],
+        }
+
+        return set_response(res, data, 200, 'success', ['My user data!'])
+
+    } else {
+        return set_response(res, null, 400, 'failed', ['Token invalid or expired!'])
+    }
+
 };
