@@ -13,6 +13,7 @@ exports.userStatusValidation = [
             return set_response(res, null, 422, 'failed', errors.errors.map(item => item.msg))
         }
 
+
         if (! await  validationrules.ObjectIdValidity(req?.body?._id)) {
             return set_response(res, null, 422, 'failed', ['user id must be a valid ObjectId'])
         }
