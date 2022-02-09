@@ -8,6 +8,15 @@ const jwt = require('jsonwebtoken');
 const moment = require('moment');
 const { unique, json_process } = require('../helpers/datahelpers');
 
+exports.register = (req, res) => {
+
+    let formData = {...req.query, ...req.body}
+
+    return set_response(res, data, 200, 'success', ['Successfully completed'])
+
+};
+
+
 exports.login = async (req, res) => {
     let formData = { ...req.query, ...req.body }
 
@@ -282,17 +291,37 @@ exports.logout = async (req, res) => {
 };
 
 
-exports.changePassword = (req, res) => {
+exports.changePassword = async (req, res) => {
 
     let formData = {...req.query, ...req.body}
 
-    // Auth.changePassword(formData, (err, data) => {
-    //     if (err) {
-    //         return set_response(res, data, 400, 'failed', err.message)
-    //     } else {
-    //         return set_response(res, data, 200, 'success', ['Successfully changed password!'])
-    //     }
-    // });
+    formData = {
+        ...formData,
+        "authorization": req.headers.authorization || ('Bearer ' + req.body.access_token),
+    };
 
-    return set_response(res, null, 200, 'success', ['Successfully changed password!'])
+    const access_token = formData.authorization.split(' ')[1];
+
+    const decoded = jwt.verify(access_token, process.env.JWT_SECRET);
+
+    if (decoded) {
+        formData.password = bcrypt.hashSync(formData.password, 10)
+    
+        await Users.updateMany(
+            {
+                user_id: decoded._id,
+            },
+            {
+                $set: {
+                    password: formData.password,
+                }
+            }
+        )
+
+        return set_response(res, null, 200, 'success', ['Successfully changed password!'])
+    }
+    else{
+        return set_response(res, data, 400, 'failed', 'Something went wrong!')
+    }
+
 };

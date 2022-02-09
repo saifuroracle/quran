@@ -7,7 +7,7 @@ module.exports = app => {
 
     prefix = "/api/v1/auth"
 
-    // app.post(prefix + "/register", registerValidation, auth.register);
+    app.post(prefix + "/register", registerValidation, auth.register);
     // app.post(prefix + "/login", loginValidation, auth.login);
     // app.post(prefix + "/login", (req, res)=>{
         //     console.log('------------------');
