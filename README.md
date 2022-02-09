@@ -28,6 +28,9 @@
     * schedule
     * enum
 
+# VScode extensions
+* tabnine
+
 # commands 
 
 ## General Commands
