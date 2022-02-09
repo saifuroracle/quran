@@ -161,11 +161,12 @@ exports.me = async (req, res) => {
                                     user_id: decoded._id,
                                     status: 'active',
                                     expires_at: { $gt: now }
-                                })
+                                }) || []
+        access_token_row_db = await json_process(access_token_row_db)
   
         user_data_db = await Users.findOne({ _id: decoded._id, expires_at: { $lte: now } }) || {}
+        user_data_db = await json_process(user_data_db)
         
-
         prev_access_tokens_expiring = await AccessTokens.updateMany(
                                             {
                                                 expires_at: { $lte: now }
@@ -180,8 +181,6 @@ exports.me = async (req, res) => {
             
     }
 
-    console.log(user_data_db);
-    console.log(decoded);
 
     if (decoded && access_token_row_db.length && user_data_db.email==decoded.email) {
 
