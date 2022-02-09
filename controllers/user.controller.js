@@ -17,6 +17,7 @@ exports.getUser = async (req, res) => {
 
 
 exports.userStatusUpdate = async (req, res) => {
+
     let formData = {...req.query, ...req.body}
     await Users.updateMany(
         {
@@ -29,6 +30,6 @@ exports.userStatusUpdate = async (req, res) => {
         }
     )
     
-    return set_response(res, data, 200, 'success', ['Successfully user status updated'])
+    return set_response(res, null, 200, 'success', ['Successfully user status updated'])
 };
 
