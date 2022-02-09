@@ -6,7 +6,7 @@ module.exports = app => {
 
     prefix = "/api/v1/user"
 
-    // app.post(prefix + "/user-status-update", checkpermissionMiddlware('user update'), userStatusValidation, user.userStatusUpdate);
+    app.post(prefix + "/user-status-update", checkpermissionMiddlware('user update'), userStatusValidation, user.userStatusUpdate);
     // app.post(prefix + "/user-status-update", authMiddlware, checkpermissionMiddlware('user update'), userStatusValidation, user.userStatusUpdate);
     app.post(prefix + "/getUser", authMiddlware, checkpermissionMiddlware('user list'), getUserValidation, user.getUser);
     // app.post(prefix + "/getAllUsers_p", authMiddlware, checkpermissionMiddlware('user list'), user.getAllUsers_p);

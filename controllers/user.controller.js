@@ -16,3 +16,19 @@ exports.getUser = async (req, res) => {
 };
 
 
+exports.userStatusUpdate = async (req, res) => {
+    let formData = {...req.query, ...req.body}
+    await Users.updateMany(
+        {
+            _id: formData._id,
+        },
+        {
+            $set: {
+                status: formData.status,
+            }
+        }
+    )
+    
+    return set_response(res, data, 200, 'success', ['Successfully user status updated'])
+};
+
