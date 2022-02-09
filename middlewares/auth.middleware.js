@@ -28,7 +28,6 @@ exports.authMiddlware = [
             if (decoded) {
 
                 access_token_row_db =  await AccessTokens.find({
-                    token: access_token,
                     user_id: decoded._id,
                     status: 'active',
                     expires_at: { $gt: now }
@@ -40,11 +39,13 @@ exports.authMiddlware = [
 
                 prev_access_tokens_expiring = await AccessTokens.updateMany(
                                                     {
+                                                        // user_id: decoded._id,
+                                                        // token: access_token,
                                                         expires_at: { $lte: now }
                                                     },
                                                     {
                                                         $set: {
-                                                            user_id: decoded._id,
+                                                            // user_id: decoded._id,
                                                             status: 'inactive',
                                                         }
                                                     }

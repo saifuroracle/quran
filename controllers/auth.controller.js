@@ -251,3 +251,12 @@ exports.me = async (req, res) => {
     }
 
 };
+
+
+exports.logout = async (req, res) => {
+
+    formData = {
+        "authorization": req.headers.authorization || ('Bearer ' + req.body.access_token),
+    };
+
+};
