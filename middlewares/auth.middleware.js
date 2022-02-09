@@ -2,6 +2,9 @@ const { header, body, validationResult } = require('express-validator');
 const { set_response } = require('../helpers/apiresponser');
 const jwt = require('jsonwebtoken');
 const { now } = require('../helpers/datehelpers');
+const AccessTokens = require("../models/access_tokens.js");
+const { unique, json_process } = require('../helpers/datahelpers');
+const Users = require("../models/users.model.js");
 
 exports.authMiddlware = [
     header('authorization', 'Authorization is required').notEmpty().trim(),
@@ -49,7 +52,8 @@ exports.authMiddlware = [
        
             }
 
-            if (decoded.id && access_token_row_db.length && user_data_db.length) {
+
+            if (decoded._id && access_token_row_db.length && user_data_db.email==decoded.email) {
                 next()
             } else {
                 return set_response(res, null, 401, 'failed', ['Unauthenticated'])
