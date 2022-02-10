@@ -24,10 +24,7 @@ exports.paginate = async (request, formData, collection) => {
     let api_url = process.env.BASE_URL+request.originalUrl
     let perPage = parseInt(formData?.perPage || 10)
     let currentPage = parseInt(formData?.page || 1)
-
-    // let total_count = ( await sqlResult(`SELECT count(*) as total_count FROM ${collection}`))[0].total_count || 0 
     let total_count = await model.count() || 0
-
     let pageCount = Math.ceil(total_count / perPage);
     let previousPage = currentPage>1 ? (currentPage - 1) : null;
     let nextPage = pageCount>currentPage ? (currentPage + 1) : null;
