@@ -67,6 +67,8 @@ exports.getAllUsers_p = async (req, res) => {
 };
 
 exports.createUser = async (req, res) => {
+    let formData = {...req.query, ...req.body}
+
     var creator = await authhelper.Auth(req);
 
     formData.password = bcrypt.hashSync(formData.password, 10)
@@ -74,7 +76,7 @@ exports.createUser = async (req, res) => {
     const roles = formData.roles || []
     
     delete formData.roles
-    // formData.created_by = creator?._id
+    formData.created_by = creator?._id
 
     return set_response(res, creator, 200, 'success', ['User successfully created.'])
 };
