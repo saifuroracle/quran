@@ -1,6 +1,7 @@
-const { sqlResult } = require('./sqlhelpers');
 const jwt = require('jsonwebtoken');
-const { unique } = require('./datahelpers');
+const { unique, json_process } = require('./datahelpers');
+const mongoose = require("mongoose");
+const Users = require("../models/users.model.js");
 
 const Authorization = exports.Authorization = async(req) => {
     let authorization = req?.headers?.authorization || ('Bearer ' + req?.body?.access_token)
@@ -20,7 +21,9 @@ const Auth = exports.Auth = async (req) => {
     try {
         const decoded = jwt.verify(access_token, process.env.JWT_SECRET);
         if (decoded) {
-            let userdata = ( await sqlResult(`SELECT * FROM users WHERE id=${decoded.id} `))[0]
+            let userdata = await Users.findOne({ email: decoded?.email }) || {}
+            userdata = await json_process(userdata)
+            delete userdata.password
             return userdata;
         }
     } catch (error) {

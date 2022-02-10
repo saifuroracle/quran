@@ -3,6 +3,7 @@ const { validationResult } = require('express-validator');
 const { set_response } = require('../helpers/apiresponser');
 const { unique, json_process } = require('../helpers/datahelpers');
 const { paginate } = require('../helpers/mongohelpers');
+const authhelper = require('../helpers/authhelper');
 
 
 exports.getUser = async (req, res) => {
@@ -64,10 +65,8 @@ exports.getAllUsers_p = async (req, res) => {
     return set_response(res, data, 200, 'success', ['Users data.'])
 };
 
-exports.createUser = (req, res) => {
-    let formData = {...req.query, ...req.body}
-
-
+exports.createUser = async (req, res) => {
+    var creator = await authhelper.Auth(req);
    
-    return set_response(res, null, 200, 'success', ['User successfully created.'])
+    return set_response(res, creator, 200, 'success', ['User successfully created.'])
 };
