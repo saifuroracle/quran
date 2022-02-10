@@ -41,6 +41,7 @@ exports.getAllUsers_p = async (req, res) => {
 
     let paginator = await paginate(req, formData, 'users')
     var data_list = await Users.find().limit(paginator?.record_per_page).skip(paginator?.offset) || []
+    data_list = await json_process(data_list)
 
     var data = {}
     if (data_list?.length) {
@@ -50,9 +51,8 @@ exports.getAllUsers_p = async (req, res) => {
             return item
         });
 
-        data_list = data_list.map(item=>{
+        data_list.forEach(item=>{
             delete item.password
-            return item
         })
 
         data =  {
