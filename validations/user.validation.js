@@ -58,8 +58,8 @@ exports.createUserValidation = [
     body('email', 'Email must be an email').isEmail(),
     body('password', 'Password is required').notEmpty(),
     body('password', 'Password length min 8 characters').isLength({ min: 8 }),
-    body('role_ids', 'Role is required').not().isEmpty(),
-    body('role_ids', 'Role must be an array').isArray(),
+    body('roles', 'Role is required').not().isEmpty(),
+    body('roles', 'Role must be an array').isArray(),
 
     async (req, res, next) => {
         const errors = validationResult(req);

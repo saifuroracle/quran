@@ -4,6 +4,7 @@ const { set_response } = require('../helpers/apiresponser');
 const { unique, json_process } = require('../helpers/datahelpers');
 const { paginate } = require('../helpers/mongohelpers');
 const authhelper = require('../helpers/authhelper');
+const bcrypt = require('bcryptjs');
 
 
 exports.getUser = async (req, res) => {
@@ -67,6 +68,13 @@ exports.getAllUsers_p = async (req, res) => {
 
 exports.createUser = async (req, res) => {
     var creator = await authhelper.Auth(req);
-   
+
+    formData.password = bcrypt.hashSync(formData.password, 10)
+
+    const roles = formData.roles || []
+    
+    delete formData.roles
+    // formData.created_by = creator?._id
+
     return set_response(res, creator, 200, 'success', ['User successfully created.'])
 };
