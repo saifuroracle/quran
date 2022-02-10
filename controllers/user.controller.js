@@ -42,5 +42,5 @@ exports.getAllUsers_p = async (req, res) => {
     let paginator = await paginate(req, formData, 'users')
     
                 
-    return set_response(res, data, 200, 'success', ['Users data.'])
+    return set_response(res, paginator, 200, 'success', ['Users data.'])
 };
