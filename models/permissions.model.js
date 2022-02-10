@@ -4,6 +4,7 @@ const PermissionsSchema = mongoose.Schema(
     {
         _id: {
             type: mongoose.Types.ObjectId,
+            required: true
         },
         permission: {
             type: String,
