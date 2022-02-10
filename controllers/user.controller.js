@@ -2,6 +2,7 @@ const Users = require("../models/users.model.js");
 const { validationResult } = require('express-validator');
 const { set_response } = require('../helpers/apiresponser');
 const { unique, json_process } = require('../helpers/datahelpers');
+const { paginate } = require('../helpers/mongohelpers');
 
 
 exports.getUser = async (req, res) => {
@@ -35,8 +36,11 @@ exports.userStatusUpdate = async (req, res) => {
 
 
 
-exports.getAllUsers_p = (req, res) => {
+exports.getAllUsers_p = async (req, res) => {
     let formData = {...req.query, ...req.body}
 
-    return set_response(res, null, 200, 'success', ['Users data.'])
+    let paginator = await paginate(req, formData, 'users')
+    
+                
+    return set_response(res, data, 200, 'success', ['Users data.'])
 };
