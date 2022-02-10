@@ -63,3 +63,11 @@ exports.getAllUsers_p = async (req, res) => {
 
     return set_response(res, data, 200, 'success', ['Users data.'])
 };
+
+exports.createUser = (req, res) => {
+    let formData = {...req.query, ...req.body}
+
+
+   
+    return set_response(res, null, 200, 'success', ['User successfully created.'])
+};
