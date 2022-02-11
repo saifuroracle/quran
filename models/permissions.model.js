@@ -16,6 +16,8 @@ const PermissionsSchema = mongoose.Schema(
         },
         created_at: { type: Date, default: Date.now },
         updated_at: { type: Date },
+        created_by: { type: String, required: false },
+        updated_by: { type: String, required: false },
     }
 )
 
