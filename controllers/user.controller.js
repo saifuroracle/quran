@@ -4,6 +4,7 @@ const { set_response } = require('../helpers/apiresponser');
 const { unique, json_process, object_filter } = require('../helpers/datahelpers');
 const { paginate } = require('../helpers/mongohelpers');
 const authhelper = require('../helpers/authhelper');
+const loghelper = require('../helpers/loghelper');
 const bcrypt = require('bcryptjs');
 const mongoose = require("mongoose");
 
@@ -88,10 +89,10 @@ exports.createUser = async (req, res) => {
     newUser = await newUser.save().then(data => {
         console.log(data);
         return data
-    }).catch(err => {
+    }).catch(async(err) => {
+        await loghelper.log(err?.message, 'error')
         console.log(err);
     });
-    console.log(newUser);
 
     return set_response(res, newUser, 200, 'success', ['User successfully created.'])
 };

@@ -1,8 +1,8 @@
 const fs = require('fs-extra');
-const datehelpers = require('../helpers/datehelpers');
+const datehelpers = require('./datehelpers');
 
 const log = exports.log = async (message, errorType='Error') => {
-    var LogFile = `./app/storage/logs/${datehelpers.todayYMD}.log`
+    var LogFile = `./storage/logs/${datehelpers.todayYMD}.log`
     fs.ensureFileSync(LogFile)
     
     var logDate = await datehelpers.now
