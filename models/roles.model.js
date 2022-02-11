@@ -16,8 +16,10 @@ const RolesSchema = mongoose.Schema(
         },
         created_at: { type: Date, default: Date.now },
         updated_at: { type: Date },
-        created_by: { type: String, required: false },
-        updated_by: { type: String, required: false },
+        deleted_at: { type: Date },
+        created_by: { type: Object},
+        updated_by: { type: Object},
+        deleted_by: { type: Object},
     }
 )
 
