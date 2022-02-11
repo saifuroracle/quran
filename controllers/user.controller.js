@@ -5,6 +5,7 @@ const { unique, json_process, object_filter } = require('../helpers/datahelpers'
 const { paginate } = require('../helpers/mongohelpers');
 const authhelper = require('../helpers/authhelper');
 const bcrypt = require('bcryptjs');
+const mongoose = require("mongoose");
 
 
 exports.getUser = async (req, res) => {
@@ -80,6 +81,17 @@ exports.createUser = async (req, res) => {
     let created_by = await Users.findOne({_id: formData.created_by_id}) || {}
     formData.created_by = await json_process(created_by)
     formData.created_by = object_filter(formData.created_by, ['_id', 'name', 'email'])
+    formData._id = new mongoose.Types.ObjectId
 
-    return set_response(res, formData, 200, 'success', ['User successfully created.'])
+    var newUser = new Users(formData)
+    console.log(newUser);
+    newUser = await newUser.save().then(data => {
+        console.log(data);
+        return data
+    }).catch(err => {
+        console.log(err);
+    });
+    console.log(newUser);
+
+    return set_response(res, newUser, 200, 'success', ['User successfully created.'])
 };
