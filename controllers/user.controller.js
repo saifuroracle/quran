@@ -85,14 +85,16 @@ exports.createUser = async (req, res) => {
     formData._id = new mongoose.Types.ObjectId
 
     var newUser = new Users(formData)
-    console.log(newUser);
+    let err_stat=0;
     newUser = await newUser.save().then(data => {
         console.log(data);
         return data
     }).catch(async(err) => {
         await loghelper.log(err?.message, 'error')
-        console.log(err);
+        err_stat=1
     });
+
+    if(err_stat) {return set_response(res, null, 400, 'failed', ['Something went wrong. Please try again later.'])}
 
     return set_response(res, newUser, 200, 'success', ['User successfully created.'])
 };
