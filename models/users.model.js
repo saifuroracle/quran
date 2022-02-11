@@ -30,8 +30,8 @@ const UsersSchema = mongoose.Schema(
         },
         created_at: { type: Date, default: Date.now },
         updated_at: { type: Date },
-        created_by: { type: Object, required: false },
-        updated_by: { type: Object, required: false },
+        created_by: { type: Object },
+        updated_by: { type: Object },
     }
 )
 
