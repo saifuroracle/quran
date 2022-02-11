@@ -1,7 +1,7 @@
 const Users = require("../models/users.model.js");
 const { validationResult } = require('express-validator');
 const { set_response } = require('../helpers/apiresponser');
-const { unique, json_process } = require('../helpers/datahelpers');
+const { unique, json_process, object_filter } = require('../helpers/datahelpers');
 const { paginate } = require('../helpers/mongohelpers');
 const authhelper = require('../helpers/authhelper');
 const bcrypt = require('bcryptjs');
@@ -76,7 +76,10 @@ exports.createUser = async (req, res) => {
     const roles = formData.roles || []
     
     delete formData.roles
-    formData.created_by = creator?._id
+    formData.created_by_id = creator?._id || ''
+    let created_by = await Users.findOne({_id: formData.created_by_id}) || {}
+    formData.created_by = await json_process(created_by)
+    formData.created_by = object_filter(formData.created_by, ['_id', 'name', 'email'])
 
-    return set_response(res, creator, 200, 'success', ['User successfully created.'])
+    return set_response(res, formData, 200, 'success', ['User successfully created.'])
 };

@@ -9,3 +9,15 @@ exports.json_process = async(data) => {
 
     return json;
 }
+
+exports.object_filter = (data_object, allowed_keys=[]) => {
+
+    const filtered = Object.keys(data_object)
+    .filter(key => allowed_keys.includes(key))
+    .reduce((obj, key) => {
+        obj[key] = data_object[key];
+        return obj;
+    }, {});
+
+    return filtered || {}
+}
