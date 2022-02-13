@@ -64,6 +64,18 @@ db.users.remove({});
 
 ## Backup
 
+### Backup Laptop
+```
+
+  cmd: 
+    cd /
+    D:
+    cd D:\Projects\0.personal\quran
+    mongodump -d quran
+
+```
+
+
 ### Backup Desktop
 ```
 
@@ -72,6 +84,16 @@ db.users.remove({});
     E:
     cd E:\Projects\0.personal\quran
     mongodump -d quran
+
+```
+
+## Git clone
+
+```
+
+  git clone 
+  npm install
+  cp .env.example .env
 
 ```
 
